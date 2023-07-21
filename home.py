@@ -32,5 +32,14 @@ def set_puslisher_table(response, frame):
     values=(element["id"], element["name"],element["type"],element["gender"], element["amount"], "kj"))
     table.bind("<ButtonRelease-1>", lambda event, col=1: edit(event, table))
     i+=1
-
   table.pack()
+  ttk.Label(frame, text="Nome:", width=10).pack()
+  ttk.Entry(frame).pack()
+  ttk.Label(frame, text="Tipo:", width=10).pack()
+  ttk.Entry(frame).pack()
+  ttk.Label(frame, text="Genero:", width=10).pack()
+  ttk.Entry(frame).pack()
+
+  ttk.Button(frame, text="Editar").pack(side=LEFT)
+  ttk.Button(frame, text="Deletar").pack()
+  ttk.Button(frame, text="Gerar Relório").pack(side=RIGHT)
