@@ -17,7 +17,6 @@ def get_puslisher(publisher_id):
 def patch_puslisher(data, publisher_id):
   url = "http://18.117.168.254/publisher/{}".format(publisher_id)
   payload = json.dumps(data)
-
   headers = {
     'Content-Type': 'application/json'
   }
@@ -26,7 +25,6 @@ def patch_puslisher(data, publisher_id):
 def post_puslisher(data):
   url = "http://18.117.168.254/publisher"
   payload = json.dumps(data)
-
   headers = {
     'Content-Type': 'application/json'
   }
@@ -36,8 +34,23 @@ def delete_puslisher(publisher_id):
   url = "http://18.117.168.254/publisher/{}".format(publisher_id)
   payload = {}
   headers = {}
-
   return requests.request("DELETE", url, headers=headers, data=payload)
+
+def get_designations(gender, length, e):
+  try:
+    length = int(length)
+    url = "http://18.117.168.254/presentations"
+    payload = json.dumps({
+      "gender": gender,
+      "length": length
+    })
+    headers = {
+      "Content-Type": "application/json"
+    }
+    res = requests.request("POST", url, headers=headers, data=payload)
+    print(res)
+  except:
+    length = 1
 
 def main(page: ft.Page):
 
@@ -51,7 +64,7 @@ def main(page: ft.Page):
       close_dlg(None)
       page.go("/")
 
-  page.title = "Routes Example"
+  page.title = "Controle de designações"
   saved_alert = ft.AlertDialog(title=ft.Text("Alterações salvas!"))
 
   def set_table():
@@ -83,7 +96,10 @@ def main(page: ft.Page):
           "/",
           [
             ft.AppBar(title=ft.Text("Lista de publicadores"), bgcolor=ft.colors.SURFACE_VARIANT),
-            ft.ElevatedButton("Adicionar Publicador", on_click=lambda _: page.go("/publisher")),
+            ft.Row([
+              ft.ElevatedButton("Adicionar Publicador", on_click=lambda _: page.go("/publisher")),
+              ft.ElevatedButton("Gerar Designações", on_click=lambda _: open_designations_config()),
+            ]),
             ft.DataTable(
               columns=[
                 ft.DataColumn(ft.Text("Id")),
@@ -250,11 +266,41 @@ def main(page: ft.Page):
         ft.TextButton("Não", on_click=lambda e: close_dlg(e)),
         ft.TextButton("Sim", on_click= lambda e: delete(id)),
     ],
-    on_dismiss=lambda e: print("Modal dialog dismissed!"),
   )
     page.dialog.open = True
     page.update()
 
+  def open_designations_config():
+    gender = ft.Dropdown(
+      label="Gênero",
+      value="female",
+      options=[
+        ft.dropdown.Option("male", "Masculino"),
+        ft.dropdown.Option("female", "Feminino"),
+      ],
+    )
+    length = ft.TextField(label="Quantidade")
+    page.dialog = ft.AlertDialog(
+      modal=True,
+      title=ft.Text("Configurações de designações"),
+      content=ft.Text("Coloque a quantidade de designações e o genero dos designados"),
+      actions=[
+        ft.Container(
+          gender,
+          margin=ft.Margin(10, 10, 10, 10),
+        ),
+        ft.Container(
+          length,
+          margin=ft.Margin(10, 10, 10, 10),
+        ),
+        ft.Row([
+          ft.TextButton("Cancelar", on_click=lambda e: close_dlg(e)),
+          ft.TextButton("Gerar", on_click=lambda e: get_designations(gender.value, length.value, e)),
+        ]),
+      ],
+    )
+    page.dialog.open = True
+    page.update()
 
   page.on_route_change = route_change
   page.on_view_pop = view_pop
