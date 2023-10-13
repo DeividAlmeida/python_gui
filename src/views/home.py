@@ -1,6 +1,7 @@
 import flet as ft
 from src.services import *
 from src.shared.utils import *
+from src.shared.paginated_dt import PaginatedDataTable
 
 def home_view(self):
   self.page.views.append(
@@ -12,16 +13,22 @@ def home_view(self):
           ft.ElevatedButton("Adicionar Publicador", on_click=lambda _: self.page.go("/publisher")),
           ft.ElevatedButton("Gerar Designações", on_click=lambda _: open_designations_config(self)),
         ]),
-        ft.DataTable(
-          columns=[
-            ft.DataColumn(ft.Text("Id")),
-            ft.DataColumn(ft.Text("Nome")),
-            ft.DataColumn(ft.Text("Tipo")),
-            ft.DataColumn(ft.Text("Gênero")),
-            ft.DataColumn(ft.Text("Qtd")),
-            ft.DataColumn(ft.Text("Ativo")),
-          ],
-          rows=set_table(self),
+        PaginatedDataTable(
+          ft.DataTable(
+            width = 1700,
+            columns=[
+              ft.DataColumn(ft.Text("Id")),
+              ft.DataColumn(ft.Text("Nome")),
+              ft.DataColumn(ft.Text("Tipo")),
+              ft.DataColumn(ft.Text("Gênero")),
+              ft.DataColumn(ft.Text("Qtd")),
+              ft.DataColumn(ft.Text("Ativo")),
+            ],
+            divider_thickness=3,
+            rows=set_table(self),
+          ),
+          rows_per_page=10,
+          width=1700,
         ),
       ],
     )
@@ -61,7 +68,7 @@ def open_designations_config(self):
   self.page.dialog = ft.AlertDialog(
     modal=True,
     title=ft.Text("Configurações de designações"),
-    content=ft.Text("Coloque a quantidade de designações e o genero dos designados"),
+    content=ft.Text("Coloque a quantidade de designações e o género dos designados"),
     actions=[
       ft.Container(
         gender,
@@ -72,8 +79,8 @@ def open_designations_config(self):
         margin=ft.Margin(10, 10, 10, 10),
       ),
       ft.Row([
-        ft.TextButton("Cancelar", on_click=lambda e: close_dlg(self)),
-        ft.TextButton("Gerar", on_click=lambda e: (get_designations(gender.value, length.value), close_dlg(self), success_bar())),
+        ft.TextButton("Cancelar", on_click = lambda _: close_dlg(self)),
+        ft.TextButton("Gerar", on_click = lambda _: (get_designations(gender.value, length.value), close_dlg(self), success_bar())),
       ]),
     ],
   )

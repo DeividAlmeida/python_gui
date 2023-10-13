@@ -1,13 +1,13 @@
 import flet as ft
 from src.services import *
-from src.shared.utils import success_bar
+from src.shared.utils import *
 
 def create_publisher_view(self):
   name = ft.TextField(label="Nome")
   type = ft.Dropdown(
     label="Nível",
     options=[
-      ft.dropdown.Option(1, "Novato"),
+      ft.dropdown.Option(1, "Iniciante"),
       ft.dropdown.Option(2, "Intermediário"),
       ft.dropdown.Option(3, "Experiente"),
     ],
@@ -25,6 +25,7 @@ def create_publisher_view(self):
       "/publisher",
       [
         ft.AppBar(title=ft.Text("Adicionar publicador"), bgcolor=ft.colors.SURFACE_VARIANT),
+        ft.ElevatedButton("Início", on_click = lambda _: self.page.go("/")),
         ft.Row([
           ft.Column([
             ft.Container(
@@ -40,7 +41,7 @@ def create_publisher_view(self):
               active,
             ),
             ft.Row([
-              ft.ElevatedButton("Salvar", on_click=lambda e: save(
+              ft.ElevatedButton("Salvar", on_click = lambda _: save(
                 self,
                 {
                   "name": name.value,
@@ -49,7 +50,7 @@ def create_publisher_view(self):
                   "active": bool(active.value)
                 }
               )),
-              ft.ElevatedButton("Cancelar", on_click=lambda e: self.page.go("/")),
+              ft.ElevatedButton("Cancelar", on_click=lambda _: self.page.go("/")),
             ]),
           ]),
         ]),

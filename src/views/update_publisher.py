@@ -9,7 +9,7 @@ def update_publisher_view(self, troute):
     label="Nível",
     value=puslisher["type"],
     options=[
-      ft.dropdown.Option(1, "Novato"),
+      ft.dropdown.Option(1, "Iniciante"),
       ft.dropdown.Option(2, "Intermediário"),
       ft.dropdown.Option(3, "Experiente"),
     ],
@@ -28,6 +28,7 @@ def update_publisher_view(self, troute):
       "/publisher/:id",
       [
         ft.AppBar(title=ft.Text(troute.id), bgcolor=ft.colors.SURFACE_VARIANT),
+        ft.ElevatedButton("Início", on_click = lambda _: self.page.go("/")),
         ft.Row([
           ft.Column([
             ft.Container(
@@ -43,7 +44,7 @@ def update_publisher_view(self, troute):
               active,
             ),
             ft.Row([
-              ft.ElevatedButton("Editar", on_click=lambda e: edit(
+              ft.ElevatedButton("Editar", on_click=lambda _: edit(
                 self,
                 {
                   "name": name.value,
@@ -53,11 +54,11 @@ def update_publisher_view(self, troute):
                 },
                 troute.id
               )),
-              ft.ElevatedButton("Deletar", on_click=lambda e: open_dlg_modal(
+              ft.ElevatedButton("Deletar", on_click=lambda _: open_dlg_modal(
                 self,
                 troute.id
               )),
-              ft.ElevatedButton("Cancelar", on_click=lambda e: self.page.go("/")),
+              ft.ElevatedButton("Cancelar", on_click=lambda _: self.page.go("/")),
             ]),
           ]),
         ]),
@@ -71,8 +72,8 @@ def open_dlg_modal(self, id):
     title=ft.Text("Atenção!!"),
     content=ft.Text("Tem certeza que deseja excluir?"),
     actions=[
-      ft.TextButton("Não", on_click=lambda e: close_dlg(self)),
-      ft.TextButton("Sim", on_click= lambda e: delete(id)),
+      ft.TextButton("Não", on_click=lambda _: close_dlg(self)),
+      ft.TextButton("Sim", on_click= lambda _: delete(id)),
     ],
   )
   self.page.dialog.open = True
