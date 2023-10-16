@@ -88,10 +88,14 @@ def edit(self, data, id):
   if res.json() == 1:
     self.page.go("/")
     success_bar(self)
+  else:
+    error_bar(self)
       
 def delete(self, id):
   res = delete_puslisher(id)
+  close_dlg(self)
   if res.json() == 1:
-    close_dlg(self)
     self.page.go("/")
     success_bar(self)
+  else:
+    error_bar(self)

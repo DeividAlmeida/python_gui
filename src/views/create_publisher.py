@@ -72,3 +72,5 @@ def save(self, data):
 
   if res.json() == 1:
     success_bar(self)
+  else:
+    error_bar(self)

@@ -65,11 +65,10 @@ def open_designations_config(self):
       ft.dropdown.Option("female", "Feminino"),
     ],
   )
-  length = ft.TextField(label="Quantidade")
+  length = ft.TextField(label="Quantidade", hint_text="Quantidade máxima 255")
   self.page.dialog = ft.AlertDialog(
     modal = True,
-    title = ft.Text("Configurações de designações"),
-    content = ft.Text("Coloque a quantidade de designações e o género dos designados"),
+    title = ft.Text("Coloque a quantidade de designações e o género dos designados"),
     actions = [
       ft.Container(
         gender,
@@ -81,7 +80,7 @@ def open_designations_config(self):
       ),
       ft.Row([
         ft.TextButton("Cancelar", on_click = lambda _: close_dlg(self)),
-        ft.TextButton("Gerar", on_click = lambda _: (get_designations(gender.value, length.value), close_dlg(self), success_bar())),
+        ft.TextButton("Gerar", on_click = lambda _: (close_dlg(self), get_designations(self, gender.value, length.value))),
       ]),
     ],
   )
