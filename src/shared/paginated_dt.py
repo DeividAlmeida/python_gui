@@ -21,7 +21,7 @@ class PaginatedDataTable(ft.UserControl):
             self,
             datatable: ft.DataTable,
             rows_per_page: int = DEFAULT_ROW_PER_PAGE,
-            width: int = 1700,
+            width: int = 300,
     ):
         """
         A customized user control which returns a paginated data table. It offers the possibility to organize data
@@ -191,31 +191,31 @@ class PaginatedDataTable(ft.UserControl):
             ft.Container(
                 ft.Column(
                     [
-                        self.pdt,
+                        ft.Row([self.pdt], alignment=ft.MainAxisAlignment.CENTER),
                         ft.Row(
                             [
                                 ft.Row(
                                     controls=[
                                         ft.IconButton(
                                             ft.icons.KEYBOARD_DOUBLE_ARROW_LEFT,
-                                            on_click=self.goto_first_page,
-                                            tooltip="Primeira Página"
+                                            on_click = self.goto_first_page,
+                                            tooltip = "Primeira Página"
                                         ),
                                         ft.IconButton(
                                             ft.icons.KEYBOARD_ARROW_LEFT,
-                                            on_click=self.prev_page,
-                                            tooltip="Página Anterior"
+                                            on_click = self.prev_page,
+                                            tooltip = "Página Anterior"
                                         ),
                                         self.gd,
                                         ft.IconButton(
                                             ft.icons.KEYBOARD_ARROW_RIGHT,
-                                            on_click=self.next_page,
-                                            tooltip="Próxima Página"
+                                            on_click = self.next_page,
+                                            tooltip = "Próxima Página"
                                         ),
                                         ft.IconButton(
                                             ft.icons.KEYBOARD_DOUBLE_ARROW_RIGHT,
-                                            on_click=self.goto_last_page,
-                                            tooltip="Última Página"
+                                            on_click = self.goto_last_page,
+                                            tooltip = "Última Página"
                                         ),
                                     ]
                                 ),
@@ -226,10 +226,10 @@ class PaginatedDataTable(ft.UserControl):
                                 ),
                                 self.v_count,
                             ],
-                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+                            alignment=ft.MainAxisAlignment.SPACE_AROUND
                         ),
                     ],
-                    scroll=ft.ScrollMode.AUTO
+                    scroll=ft.ScrollMode.AUTO,
                 ),
                 padding=10,
             ),

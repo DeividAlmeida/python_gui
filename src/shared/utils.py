@@ -11,3 +11,11 @@ def success_bar(self):
 def close_dlg(self):
   self.page.dialog.open = False
   self.page.update()
+
+translates = {
+  "TYPE" : ["", "Iniciante", "Intermediário", "Experiente"],
+  "GENDER" : {
+    "male" : "Masculino",
+    "female" : "Feminino",
+  }
+}

@@ -24,4 +24,4 @@ class Main:
       top_view = self.page.views[-1]
       self.page.go(top_view.route)
   
-ft.app(target=Main, view=ft.AppView.FLET_APP)
+ft.app(target = Main, view = ft.AppView.FLET_APP)

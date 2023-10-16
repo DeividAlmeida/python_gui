@@ -3,7 +3,7 @@ from src.services import *
 from src.shared.utils import *
 
 def create_publisher_view(self):
-  name = ft.TextField(label="Nome")
+  name = ft.TextField(label="Nome", width = 500)
   type = ft.Dropdown(
     label="Nível",
     options=[
@@ -11,6 +11,7 @@ def create_publisher_view(self):
       ft.dropdown.Option(2, "Intermediário"),
       ft.dropdown.Option(3, "Experiente"),
     ],
+    width = 500
   )
   gender = ft.Dropdown(
     label="Gênero",
@@ -18,6 +19,7 @@ def create_publisher_view(self):
       ft.dropdown.Option("male", "Masculino"),
       ft.dropdown.Option("female", "Feminino"),
     ],
+    width = 500
   )
   active = ft.Switch(label="Status")
   self.page.views.append(
@@ -50,10 +52,12 @@ def create_publisher_view(self):
                   "active": bool(active.value)
                 }
               )),
-              ft.ElevatedButton("Cancelar", on_click=lambda _: self.page.go("/")),
+              ft.ElevatedButton("Cancelar", on_click = lambda _: self.page.go("/")),
             ]),
           ]),
-        ]),
+        ],
+        alignment=ft.MainAxisAlignment.CENTER,
+        ),
       ],
     )
   )
