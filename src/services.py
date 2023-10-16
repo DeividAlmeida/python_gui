@@ -12,7 +12,7 @@ def get_puslishers():
     url = "{}/publisher".format(server)
     payload = {}
     headers = {}
-    return requests.request("GET", url, headers=headers, data=payload)
+    return requests.request("GET", url, headers = headers, data = payload)
   except:
     return []
 
@@ -21,7 +21,7 @@ def get_puslisher(publisher_id):
     url = "{}/publisher/{}".format(server, publisher_id)
     payload = {}
     headers = {}
-    return requests.request("GET", url, headers=headers, data=payload)
+    return requests.request("GET", url, headers = headers, data = payload)
   except:
     return []
 
@@ -32,7 +32,7 @@ def patch_puslisher(data, publisher_id):
     headers = {
       "Content-Type": "application/json"
     }
-    return requests.request("PATCH", url, headers=headers, data=payload)
+    return requests.request("PATCH", url, headers = headers, data = payload)
   except:
     return []
 
@@ -43,7 +43,7 @@ def post_puslisher(data):
     headers = {
       "Content-Type": "application/json"
     }
-    return requests.request("POST", url, headers=headers, data=payload)
+    return requests.request("POST", url, headers = headers, data = payload)
   except:
     return 0
 
@@ -52,7 +52,7 @@ def delete_puslisher(publisher_id):
     url = "{}/publisher/{}".format(server, publisher_id)
     payload = {}
     headers = {}
-    return requests.request("DELETE", url, headers=headers, data=payload)
+    return requests.request("DELETE", url, headers = headers, data = payload)
   except:
     return 0
 
@@ -67,7 +67,7 @@ def get_designations(self, gender, length):
     headers = {
       "Content-Type": "application/json"
     }
-    res = requests.request("POST", url, headers=headers, data=payload)
+    res = requests.request("POST", url, headers = headers, data = payload)
     generate_designations(self, res.json())
   except:
     error_bar(self)
