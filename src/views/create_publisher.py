@@ -3,31 +3,31 @@ from src.services import *
 from src.shared.utils import *
 
 def create_publisher_view(self):
-  name = ft.TextField(label="Nome", width = 500)
-  type = ft.Dropdown(
+  name=ft.TextField(label="Nome", width=500)
+  type=ft.Dropdown(
     label="Nível",
     options=[
       ft.dropdown.Option(1, "Iniciante"),
       ft.dropdown.Option(2, "Intermediário"),
       ft.dropdown.Option(3, "Experiente"),
     ],
-    width = 500
+    width=500
   )
-  gender = ft.Dropdown(
+  gender=ft.Dropdown(
     label="Gênero",
     options=[
       ft.dropdown.Option("male", "Masculino"),
       ft.dropdown.Option("female", "Feminino"),
     ],
-    width = 500
+    width=500
   )
-  active = ft.Switch(label="Status")
+  active=ft.Switch(label="Status")
   self.page.views.append(
     ft.View(
       "/publisher",
       [
         ft.AppBar(title=ft.Text("Adicionar publicador"), bgcolor=ft.colors.SURFACE_VARIANT),
-        ft.ElevatedButton("Início", on_click = lambda _: self.page.go("/")),
+        ft.ElevatedButton("Início", on_click=lambda _: self.page.go("/")),
         ft.Row([
           ft.Column([
             ft.Container(
@@ -43,7 +43,7 @@ def create_publisher_view(self):
               active,
             ),
             ft.Row([
-              ft.ElevatedButton("Salvar", on_click = lambda _: save(
+              ft.ElevatedButton("Salvar", on_click=lambda _: save(
                 self,
                 {
                   "name": name.value,
@@ -52,7 +52,7 @@ def create_publisher_view(self):
                   "active": bool(active.value)
                 }
               )),
-              ft.ElevatedButton("Cancelar", on_click = lambda _: self.page.go("/")),
+              ft.ElevatedButton("Cancelar", on_click=lambda _: self.page.go("/")),
             ]),
           ]),
         ],
@@ -63,7 +63,7 @@ def create_publisher_view(self):
   )
 
 def save(self, data):
-  res = post_puslisher({
+  res=post_puslisher({
     "name": data["name"],
     "type": int(data["type"]),
     "gender": data["gender"],
